@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# Dragon Ball Fight
 
 ## Equipo de desarrollo
 
