@@ -21,9 +21,23 @@ object pantalla {
 		keyboard.right().onPressDo({goku.moverseDerecha()})
 		keyboard.a().onPressDo({goku.dispara(1) })
    		keyboard.s().onPressDo({goku.dispara(2) })
+		// keyboard.t().onPressDo({goku.teletransportarse})
 		
 		game.start()
 	}
+	
+	// Función que hizo el profesor en clase.
+	/*
+	method queNoSeSalga(posicion){
+		var nuevaPos = posicion
+		if(posicion.x() >= ancho) nuevaPos = game.at(ancho-1,nuevaPos.y())
+		if(posicion.x() < 0) nuevaPos = game.at(0,nuevaPos.y())
+		if(posicion.y() >= alto) nuevaPos = game.at(nuevaPos.x(),alto-1)
+		if(posicion.y() < 0) nuevaPos = game.at(nuevaPos.x(),0)
+		return nuevaPos
+		
+	}
+	*/
 }
 
 class Enemigo {
@@ -90,6 +104,7 @@ object goku {
 	var position = game.at(positionX, positionY)
 	var nro = 2
 	var image = "img/goku0.png"
+	// var property enemigos = [majinBoo, enemigo2, enemigo3, ...]
 	
 	method position() {
 		return position
@@ -111,6 +126,13 @@ object goku {
 	method a() {
 		image = "img/goku1.png"
 	}
+	
+	/*
+	method teletransportarse() {
+		var objetivo = enemigos.find({enemigo => game.hasVisual(enemigo)})
+		self.position(objetivo.position)
+	}
+	*/
 }
 
 object majinBoo {
