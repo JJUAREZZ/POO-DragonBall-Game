@@ -131,6 +131,7 @@ object goku {
 	method teletransportarse() {
 		var objetivo = enemigos.find({enemigo => game.hasVisual(enemigo)})
 		self.position(objetivo.position)
+		objetivo.perderVida(150)
 	}
 	*/
 }
