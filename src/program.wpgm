@@ -1,8 +1,15 @@
-import example.*
+import wollok.game.*
+import pantallainicio.*
+import personajes.*
+import disparos.*
+import movimientos.*
 
-
-program dragonBall {
-
-	pantalla.iniciar()
-
+program DragonBall {
+	game.title("Dragon Ball Fight")
+	game.boardGround("img/background.gif")
+	game.height(15)
+	game.width(30)
+	startMenu.iniciar()
+	
+	game.start()
 }
