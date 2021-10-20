@@ -6,7 +6,7 @@ import enemigos.*
 
 class Personaje {
 	var property position = game.at(15, 2)
-	var property vida = 100
+	var property vida = 10
 	var muertesTotales = 0
 	
 	method moverseDer() {
@@ -22,7 +22,7 @@ class Personaje {
 	method estoyMuerto() {
 		if(vida == 0) {
 			game.say(self, "Game Over")
-			game.schedule(3000, {game.stop()})
+			game.schedule(1500, {game.stop()})
 		}
 	}
 }
@@ -30,7 +30,7 @@ class Personaje {
 object goku inherits Personaje {
 	method image() = "img/goku0.png"
 	method disparar(direccion) {
-		const ataque = new AtaqueGoku(position = self.position())
+		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3))
 		game.addVisual(ataque)
 		ataque.hacia(direccion)
 	}
