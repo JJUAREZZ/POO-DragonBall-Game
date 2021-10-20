@@ -6,6 +6,7 @@ import enemigos.*
 
 class Ataque {
 	var property position
+	var danio = 1
 	
 	method hacia(direccion) {
 		if(direccion == 1) {
@@ -26,9 +27,10 @@ class Ataque {
 			})
 		}
 	}
-	method colision() {
+	method colision(enemigo, disparo) {
 		 /*game.onCollideDo(self, {alguien => alguien.perderVida(danio)})
 		 game.removeVisual(self)*/
+		 enemigo.perderVida(danio)
 	}
 }
 
