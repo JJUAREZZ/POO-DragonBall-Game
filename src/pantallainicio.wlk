@@ -2,6 +2,7 @@ import wollok.game.*
 import personajes.*
 import disparos.*
 import movimientos.*
+import enemigos.*
 
 object startMenu {
 	method iniciar() {
@@ -36,6 +37,8 @@ object nivel {
 	method iniciar() {
 		game.clear()
 		game.addVisual(personaje)
-		config.configurarTeclas(personaje)
+		config.configurarTeclas()
+		enemigos.aparecerEnemigos()
+		config.configurarColisiones()
 	}
 }
