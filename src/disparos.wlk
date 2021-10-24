@@ -10,27 +10,17 @@ class Ataque {
 	
 	method hacia(direccion) {
 		if(direccion == 1) {
-			game.onTick(300, "moverIzq", {
-				//if(game.colliders(self) != []) {
-				//	self.colision()
-				//} else {
+			game.onTick(200, "moverIzq", {
 					position = position.left(1)
-				//}
-			})
 		} else {
-			game.onTick(300, "moverDer", {
-				//if(game.colliders(self) != []) {
-				//	self.colision()
-				//} else {
+			game.onTick(200, "moverDer", {
 					position = position.right(1)
-				//}
 			})
 		}
 	}
-	method colision(enemigo, disparo) {
-		 /*game.onCollideDo(self, {alguien => alguien.perderVida(danio)})
-		 game.removeVisual(self)*/
+	method colision(enemigo) {
 		 enemigo.perderVida(danio)
+		 game.removeVisual(self)
 	}
 }
 
@@ -39,5 +29,6 @@ class AtaqueGoku inherits Ataque {
 }
 
 class AtaqueVegeta inherits Ataque {
-	
+	method image() = "img/ataqueVegeta.png"
 }
+
