@@ -27,7 +27,7 @@ class Personaje {
 	}
 	method sumarKill() {
 		muertesTotales++
-		if(muertesTotales == 14){
+		if(muertesTotales == 22){
 			game.say(self, "winner winner chicken dinner")
 			game.schedule(1500, {game.stop()})
 		}
@@ -35,21 +35,31 @@ class Personaje {
 }
 
 object goku inherits Personaje {
-	method image() = "img/goku0.png"
+	var image = "img/goku1.png"
+	
+	method image() = image
 	method disparar(direccion) {
 		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3))
 		game.addVisual(ataque)
 		ataque.hacia(direccion)
 		config.colisionDisparoPersonaje(ataque)
 	}
+	method cambioDeRonda(ronda){
+		image = "img/goku" + ronda + ".png"
+	}
 }
 
 object vegeta inherits Personaje {
-	method image() = "img/vegeta.png"
+	var image = "img/vegeta1.png"
+	
+	method image() = image
 	method disparar(direccion) {
 		const ataque = new AtaqueVegeta(position = game.at(self.position().x(), 3))
 		game.addVisual(ataque)
 		ataque.hacia(direccion)
 		config.colisionDisparoPersonaje(ataque)
+	}
+	method cambioDeRonda(ronda){
+		image = "img/vegeta" + ronda + ".png"
 	}
 }
