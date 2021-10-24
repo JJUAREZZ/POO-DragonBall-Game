@@ -15,48 +15,42 @@ object config {
         })
         keyboard.a().onPressDo({personaje.disparar(1) })
    		keyboard.s().onPressDo({personaje.disparar(2) })
-   		/*keyboard.space().onPressDo({ 
-           ataquePersonajes.disparar()
-        })*/
 	}
 	method configurarColisiones() {
 		game.onCollideDo(personaje, {enemigo => enemigo.atacar()})
 	}
-	method colisionDisparoPersonaje() {
-		enemigos.listaInvisibles().forEach({enemigo => game.onCollideDo(enemigo, {disparo => disparo.colision(enemigo, disparo)})})
+	method colisionDisparoPersonaje(disparo) {
+		game.onCollideDo(disparo, {invisible => disparo.colision(invisible)})
 	}
 }
 
 object activador {
-	method iniciar() {
-		//game.start()
-	}
-	method perseguirPersonaje() {
-		game.onTick(800, "perseguir personaje", {perseguirPersonaje.perseguir()})
+	method perseguirPersonaje(enemigo) {
+		game.onTick(enemigo.velocidad(), "perseguir personaje", {perseguirPersonaje.perseguir(enemigo)})
 	}
 }
 
 object perseguirPersonaje {
 	const personaje = nivel.personaje()
 	
-	method perseguir() {enemigos.listaEnemigos().forEach({enemy => self.nuevaPosicion(enemy)})}
-	method nuevaPosicion(enemy) {
-		if(self.personajeALaIzq(enemy)) {
-			self.irIzq(enemy)
-		} else if(self.personajeALaDer(enemy)){
-			self.irDer(enemy)
+	method perseguir(enemigo) {self.nuevaPosicion(enemigo)}
+	method nuevaPosicion(enemigo) {
+		if(self.personajeALaIzq(enemigo)) {
+			self.irIzq(enemigo)
+		} else if(self.personajeALaDer(enemigo)){
+			self.irDer(enemigo)
 		}
 	}
-	method personajeALaIzq(enemy) {
-		return (enemy.position().x() > personaje.position().x())
+	method personajeALaIzq(enemigo) {
+		return (enemigo.position().x() > personaje.position().x())
 	}
-	method personajeALaDer(enemy) {
-		return (enemy.position().x() < personaje.position().x())
+	method personajeALaDer(enemigo) {
+		return (enemigo.position().x() < personaje.position().x())
 	}
-	method irIzq(enemy) {
-		enemy.moverse(enemy.position().left(1))
+	method irIzq(enemigo) {
+		enemigo.moverse(enemigo.position().left(1))
 	}
-	method irDer(enemy) {
-		enemy.moverse(enemy.position().right(1))
+	method irDer(enemigo) {
+		enemigo.moverse(enemigo.position().right(1))
 	}
 }
