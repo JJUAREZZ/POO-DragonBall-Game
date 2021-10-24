@@ -21,7 +21,14 @@ class Personaje {
 	}
 	method estoyMuerto() {
 		if(vida == 0) {
-			game.say(self, "Game Over")
+			game.say(self, "Noo F")
+			game.schedule(1500, {game.stop()})
+		}
+	}
+	method sumarKill() {
+		muertesTotales++
+		if(muertesTotales == 14){
+			game.say(self, "winner winner chicken dinner")
 			game.schedule(1500, {game.stop()})
 		}
 	}
@@ -33,9 +40,16 @@ object goku inherits Personaje {
 		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3))
 		game.addVisual(ataque)
 		ataque.hacia(direccion)
+		config.colisionDisparoPersonaje(ataque)
 	}
 }
 
 object vegeta inherits Personaje {
-	
+	method image() = "img/vegeta.png"
+	method disparar(direccion) {
+		const ataque = new AtaqueVegeta(position = game.at(self.position().x(), 3))
+		game.addVisual(ataque)
+		ataque.hacia(direccion)
+		config.colisionDisparoPersonaje(ataque)
+	}
 }
