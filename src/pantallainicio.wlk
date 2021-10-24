@@ -38,9 +38,11 @@ object nivel {
 		game.clear()
 		game.addVisual(personaje)
 		game.addVisual(banner)
+		game.addVisual(round)
 		config.configurarTeclas()
 		enemigos.aparecerEnemigos()
 		config.configurarColisiones()
+		round.cambioDeRonda(1)
 	}
 }
 
@@ -48,4 +50,16 @@ object banner {
 	method image() = "img/banner.png"
 	method position() = game.at(10, 9.5)
 }
+
+object round {
+	var image 
+	
+	method image() = image
+	method position() = game.at(9, 5)
+	method cambioDeRonda(ronda) {
+		image = "img/round" + ronda + ".png"
+		game.schedule(2000, {game.removeVisual(self)})
+	}
+}
+
 
