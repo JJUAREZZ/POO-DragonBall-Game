@@ -37,8 +37,15 @@ object nivel {
 	method iniciar() {
 		game.clear()
 		game.addVisual(personaje)
+		game.addVisual(banner)
 		config.configurarTeclas()
 		enemigos.aparecerEnemigos()
 		config.configurarColisiones()
 	}
 }
+
+object banner {
+	method image() = "img/banner.png"
+	method position() = game.at(10, 9.5)
+}
+
