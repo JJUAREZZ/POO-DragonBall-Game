@@ -72,39 +72,44 @@ class Invisible {
 }
 
 object enemigos {
+	const personaje = nivel.personaje()
 	const property listaEnemigos = []
 	const property listaInvisibles = []
 	const property rondaUno = []
 	const property rondaDos = []
+	var ronda = 1
 	
 	method aparecerEnemigos() {
-		game.onTick(2000, "ronda uno", {
-			if(listaEnemigos.size() <= 6) {
-				var enemigo = new EnemigoRondaUno(position = game.at(self.aparecerRandom(), 2), danio = 1, velocidad = 500)
-				var invisible = new Invisible(position = game.at(enemigo.position().x(), 3), vida = 1, enemigoASeguir = enemigo)	
-				self.nuevoEnemigo(enemigo)
-				self.nuevoInvisible(invisible)
-			} else {
-				game.removeTickEvent("ronda uno")
-			}
-		})
-		game.onTick(5000, "ronda dos", {
-			if(listaEnemigos.size() > 6 && listaEnemigos.size() <= 12) {
-				var enemigo = new EnemigoRondaDos(position = game.at(self.aparecerRandom(), 2), danio = 2, velocidad = 700)
+		game.onTick(1500, "ronda uno", {
+			if(listaEnemigos.size() < 11) {
+				var enemigo = new EnemigoRondaUno(position = game.at(self.aparecerRandom(), 2), danio = 2, velocidad = 300)
 				var invisible = new Invisible(position = game.at(enemigo.position().x(), 3), vida = 2, enemigoASeguir = enemigo)	
 				self.nuevoEnemigo(enemigo)
-				self.nuevoInvisible(invisible)
-			} 
-		})
-		game.onTick(8000, "boss final", {
-			if(listaEnemigos.size() == 13){
-				var boss = new BossFinal(position = game.at(self.aparecerRandom(), 2), danio = 10, velocidad = 1000)
-				var invisible = new Invisible(position = game.at(boss.position().x(), 3), vida = 10, enemigoASeguir = boss)	
-				self.nuevoEnemigo(boss)
-				self.nuevoInvisible(invisible)
+				self.nuevoInvisible(invisible)	
 			}
 		})
-		
+		game.schedule(23000, {
+			self.cambioDeRonda()
+			game.onTick(1500, "ronda dos", {
+				if(listaEnemigos.size() >= 11 && listaEnemigos.size() < 21) {
+					var enemigo = new EnemigoRondaDos(position = game.at(self.aparecerRandom(), 2), danio = 5, velocidad = 700)
+					var invisible = new Invisible(position = game.at(enemigo.position().x(), 3), vida = 4, enemigoASeguir = enemigo)	
+					self.nuevoEnemigo(enemigo)
+					self.nuevoInvisible(invisible)
+				} 
+			})
+		})
+		game.schedule(48000, {
+			self.cambioDeRonda()
+			game.onTick(100, "boss final", {
+				if(listaEnemigos.size() == 21){
+					var boss = new BossFinal(position = game.at(self.aparecerRandom(), 2), danio = 10, velocidad = 1000)
+					var invisible = new Invisible(position = game.at(boss.position().x(), 3), vida = 10, enemigoASeguir = boss)	
+					self.nuevoEnemigo(boss)
+					self.nuevoInvisible(invisible)
+				}
+			})
+		})
 	}
 	method nuevoEnemigo(enemigo) {
 		game.addVisual(enemigo)
@@ -125,5 +130,11 @@ object enemigos {
 	method aparecerRandom() {
 		var extremos = [0, game.width()]
 		return extremos.anyOne()
+	}
+	method cambioDeRonda() {
+		ronda++
+		personaje.cambioDeRonda(ronda)
+		game.addVisual(round)
+		round.cambioDeRonda(ronda)
 	}
 }
