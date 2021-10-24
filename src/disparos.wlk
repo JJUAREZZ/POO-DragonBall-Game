@@ -12,6 +12,7 @@ class Ataque {
 		if(direccion == 1) {
 			game.onTick(200, "moverIzq", {
 					position = position.left(1)
+			})
 		} else {
 			game.onTick(200, "moverDer", {
 					position = position.right(1)
