@@ -2,9 +2,9 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Joaquin Ezequiel Juarez (JJUAREZZ)
+- Nadia Nataly Huaqui Quispe (huaquinadia)
+- Juan Ignacio Pereda Soto (JuaniPS)
 
 ## Capturas
 
@@ -17,6 +17,6 @@
 
 ## Otros
 
-- Curso/Facultad
-- Versión de wollok
+- Paradigmas de Programacion - K2002 - UTNFRBA
+- Versión de wollok: 3.0.0
 - Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
