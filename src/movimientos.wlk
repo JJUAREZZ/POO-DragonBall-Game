@@ -15,6 +15,8 @@ object config {
         })
         keyboard.a().onPressDo({personaje.disparar(1) })
    		keyboard.s().onPressDo({personaje.disparar(2) })
+   		keyboard.d().onPressDo({personaje.ulti(1) })
+   		keyboard.f().onPressDo({personaje.ulti(2) })
 	}
 	method configurarColisiones() {
 		game.onCollideDo(personaje, {enemigo => enemigo.atacar()})
@@ -54,3 +56,5 @@ object perseguirPersonaje {
 		enemigo.moverse(enemigo.position().right(1))
 	}
 }
+
+
