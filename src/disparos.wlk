@@ -7,6 +7,7 @@ import enemigos.*
 class Ataque {
 	var property position
 	var danio = 1
+	var personaje = nivel.personaje()
 	
 	method hacia(direccion) {
 		if(direccion == 1) {
@@ -22,6 +23,7 @@ class Ataque {
 	method colision(enemigo) {
 		 enemigo.perderVida(danio)
 		 game.removeVisual(self)
+		 personaje.sumarImpacto()
 	}
 }
 
@@ -31,5 +33,35 @@ class AtaqueGoku inherits Ataque {
 
 class AtaqueVegeta inherits Ataque {
 	method image() = "img/ataqueVegeta.png"
+}
+
+class Ultimate {
+	var property position
+	var danio = 4
+	
+	method hacia(direccion) {
+		if(direccion == 1) {
+			game.removeVisual(ultiActiva)
+			game.onTick(200, "moverIzq", {
+					position = position.left(1)
+			})
+		} else {
+			game.removeVisual(ultiActiva)
+			game.onTick(200, "moverDer", {
+					position = position.right(1)
+			})
+		}
+	}
+	method colision(enemigo) {
+		 enemigo.perderVida(danio)
+	}
+}
+
+class ultiGoku inherits Ultimate {
+	method image() = "img/ultiGoku.png"
+}
+
+class ultiVegeta inherits Ultimate {
+	method image() = "img/ultiVegeta.png"
 }
 
