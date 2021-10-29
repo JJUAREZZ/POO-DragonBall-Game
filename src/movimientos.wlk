@@ -13,10 +13,10 @@ object config {
         keyboard.right().onPressDo({ 
             personaje.moverseDer()
         })
-        keyboard.a().onPressDo({personaje.disparar(1) })
-   		keyboard.s().onPressDo({personaje.disparar(2) })
-   		keyboard.d().onPressDo({personaje.ulti(1) })
-   		keyboard.f().onPressDo({personaje.ulti(2) })
+        keyboard.a().onPressDo({personaje.disparar(izquierda) })
+   		keyboard.s().onPressDo({personaje.disparar(derecha) })
+   		keyboard.d().onPressDo({personaje.ulti(izquierda) })
+   		keyboard.f().onPressDo({personaje.ulti(derecha) })
 	}
 	method configurarColisiones() {
 		game.onCollideDo(personaje, {enemigo => enemigo.atacar()})
@@ -35,7 +35,13 @@ object activador {
 object perseguirPersonaje {
 	const personaje = nivel.personaje()
 	
-	method perseguir(enemigo) {self.nuevaPosicion(enemigo)}
+	method perseguir(enemigo) {
+		if(enemigo.vida() == 0){
+			game.removeTickEvent("perseguir personaje")
+		} else {
+			self.nuevaPosicion(enemigo)	
+		}
+	}
 	method nuevaPosicion(enemigo) {
 		if(self.personajeALaIzq(enemigo)) {
 			self.irIzq(enemigo)
