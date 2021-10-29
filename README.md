@@ -17,13 +17,12 @@ El objetivo del juego es que el personajes principal (cualquiera que el jugador 
 
 #Teclas:
 
-Movimiento hacia la derecha: →
-Movimiento hacia la izquierda: ←
-Ataque basico hacia la derecha: a
-Ataque basico hacia la izquierda: s
-Ultimate hacia la derecha: d
-Ultimate hacia la izquierda: f
-
+Movimiento hacia la derecha: →  
+Movimiento hacia la izquierda: ←  
+Ataque basico hacia la derecha: a  
+Ataque basico hacia la izquierda: s  
+Ultimate hacia la derecha: d  
+Ultimate hacia la izquierda: f  
 
 ## Otros
 
