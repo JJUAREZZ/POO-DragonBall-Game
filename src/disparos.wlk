@@ -7,23 +7,24 @@ import enemigos.*
 class Ataque {
 	var property position
 	var danio = 1
+	var direccion
 	var personaje = nivel.personaje()
 	
-	method hacia(direccion) {
-		if(direccion == 1) {
-			game.onTick(200, "moverIzq", {
-					position = position.left(1)
-			})
-		} else {
-			game.onTick(200, "moverDer", {
-					position = position.right(1)
-			})
-		}
+	method movete() {
+		game.onTick(200, "mover ataque", {
+				direccion.moverse(self)		
+		})
+	}
+	method nuevaPosicion(nuevaPosicion) {
+		position = nuevaPosicion
 	}
 	method colision(enemigo) {
 		 enemigo.perderVida(danio)
 		 game.removeVisual(self)
 		 personaje.sumarImpacto()
+	}
+	method desaparecer() {
+		game.removeTickEvent("mover ataque")
 	}
 }
 
@@ -38,30 +39,57 @@ class AtaqueVegeta inherits Ataque {
 class Ultimate {
 	var property position
 	var danio = 4
+	var direccion 
 	
-	method hacia(direccion) {
-		if(direccion == 1) {
-			game.removeVisual(ultiActiva)
-			game.onTick(200, "moverIzq", {
-					position = position.left(1)
-			})
-		} else {
-			game.removeVisual(ultiActiva)
-			game.onTick(200, "moverDer", {
-					position = position.right(1)
-			})
-		}
+	method movete() {
+		game.removeVisual(ultiActiva)
+		game.onTick(200, "mover ulti", {
+				direccion.moverse(self)		
+		})
+	}
+	method nuevaPosicion(nuevaPosicion) {
+		position = nuevaPosicion
 	}
 	method colision(enemigo) {
 		 enemigo.perderVida(danio)
 	}
+	method desaparecer() {
+		game.removeTickEvent("mover ulti")
+		game.removeVisual(self)
+	}
 }
 
-class ultiGoku inherits Ultimate {
+class UltiGoku inherits Ultimate {
 	method image() = "img/ultiGoku.png"
 }
 
-class ultiVegeta inherits Ultimate {
+class UltiVegeta inherits Ultimate {
 	method image() = "img/ultiVegeta.png"
+}
+
+object izquierda {
+	method moverse(objeto) {
+		if(tablero.enElTablero(objeto)) {
+			objeto.nuevaPosicion(objeto.position().left(1))	
+		} else {
+			objeto.desaparecer()
+		}
+	}
+}
+
+object derecha {
+	method moverse(objeto) {
+		if(tablero.enElTablero(objeto)) {
+			objeto.nuevaPosicion(objeto.position().right(1))	
+		} else {
+			objeto.desaparecer()
+		}
+	}
+}
+
+object tablero {
+	method enElTablero(objeto) {
+		return (objeto.position().x() > -1 && objeto.position().x() < game.width() + 1)
+	}
 }
 
