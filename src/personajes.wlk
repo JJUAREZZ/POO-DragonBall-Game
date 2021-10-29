@@ -8,7 +8,7 @@ class Personaje {
 	var property position = game.at(15, 2)
 	var property vida = 10
 	var impactos = 0
-	var muertesTotales = 0
+	var property muertesTotales = 0
 	
 	method moverseDer() {
 		position = position.right(1)
@@ -35,7 +35,7 @@ class Personaje {
 	}
 	method sumarImpacto() {
 		impactos+=1
-		if(impactos >= 5) game.addVisual(ultiActiva)
+		if(impactos >= 5 && !game.hasVisual(ultiActiva)) game.addVisual(ultiActiva)
 	}
 }
 
@@ -44,16 +44,16 @@ object goku inherits Personaje {
 	
 	method image() = image
 	method disparar(direccion) {
-		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3))
+		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3), direccion = direccion)
 		game.addVisual(ataque)
-		ataque.hacia(direccion)
+		ataque.movete()
 		config.colisionDisparoPersonaje(ataque)
 	}
 	method ulti(direccion) {
 		if(impactos >= 5) {
-			const ulti = new ultiGoku(position = game.at(self.position().x(), 3))
+			const ulti = new UltiGoku(position = game.at(self.position().x(), 3), direccion = direccion)
 			game.addVisual(ulti)
-			ulti.hacia(direccion)
+			ulti.movete()
 			config.colisionDisparoPersonaje(ulti)
 			impactos = 0
 		} else {
@@ -70,16 +70,16 @@ object vegeta inherits Personaje {
 	
 	method image() = image
 	method disparar(direccion) {
-		const ataque = new AtaqueVegeta(position = game.at(self.position().x(), 3))
+		const ataque = new AtaqueVegeta(position = game.at(self.position().x(), 3), direccion = direccion)
 		game.addVisual(ataque)
-		ataque.hacia(direccion)
+		ataque.movete()
 		config.colisionDisparoPersonaje(ataque)
 	}
 	method ulti(direccion) {
 		if(impactos >= 5) {
-			const ulti = new ultiVegeta(position = game.at(self.position().x(), 3))
+			const ulti = new UltiVegeta(position = game.at(self.position().x(), 3), direccion = direccion)
 			game.addVisual(ulti)
-			ulti.hacia(direccion)
+			ulti.movete()
 			config.colisionDisparoPersonaje(ulti)
 			impactos = 0
 		} else {
@@ -95,34 +95,4 @@ object ultiActiva {
 	
 	method position() = game.at(24, 9.5)
 	method image() = "img/ultimate.png"
-}
-
-object goku inherits Personaje {
-	var image = "img/goku1.png"
-	
-	method image() = image
-	method disparar(direccion) {
-		const ataque = new AtaqueGoku(position = game.at(self.position().x(), 3))
-		game.addVisual(ataque)
-		ataque.hacia(direccion)
-		config.colisionDisparoPersonaje(ataque)
-	}
-	method cambioDeRonda(ronda){
-		image = "img/goku" + ronda + ".png"
-	}
-}
-
-object vegeta inherits Personaje {
-	var image = "img/vegeta1.png"
-	
-	method image() = image
-	method disparar(direccion) {
-		const ataque = new AtaqueVegeta(position = game.at(self.position().x(), 3))
-		game.addVisual(ataque)
-		ataque.hacia(direccion)
-		config.colisionDisparoPersonaje(ataque)
-	}
-	method cambioDeRonda(ronda){
-		image = "img/vegeta" + ronda + ".png"
-	}
 }
