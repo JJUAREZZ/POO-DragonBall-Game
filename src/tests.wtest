@@ -1,6 +1,28 @@
+import wollok.game.*
+import pantallainicio.*
+import personajes.*
+import disparos.*
+import movimientos.*
+import enemigos.*
 
-test "testX" {
+describe "movimiento de personajes" {
+	test "goku va hacia la izquierda" {
+		goku.moverseIzq()
+		assert.equals(game.at(14, 2), goku.position())
+	}	
+	test "vegeta va hacia la derecha" {
+		vegeta.moverseDer()
+		assert.equals(game.at(16, 2), vegeta.position())
+	}
+}
 
-	assert.that(true)
-
+describe "personaje es atacado" {
+	test "goku es atacado y pierde 1 de vida" {
+		nivel.personajeSeleccionado(goku)
+		nivel.iniciar()
+		const enemigo = new Enemigo(position = game.at(ronda.aparecerRandom(), 2), danio = 1, velocidad = 300, vida = 1, images = ["img/mrsatan.png"])
+		game.addVisual(enemigo)
+		enemigo.atacar()
+		assert.equals(9, nivel.personaje().vida())
+	}
 }
