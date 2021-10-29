@@ -40,7 +40,7 @@ object nivel {
 		game.addVisual(banner)
 		game.addVisual(round)
 		config.configurarTeclas()
-		enemigos.aparecerEnemigos()
+		configRondas.aparecerEnemigos()
 		config.configurarColisiones()
 		round.cambioDeRonda(1)
 	}
