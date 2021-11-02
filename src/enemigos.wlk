@@ -84,10 +84,6 @@ object configRondas {
 			})
 		})
 	}
-	
-	// unaRonda.iniciarRondas(listaEnemigos,self)
-	
-
 	method cambioDeRonda() {
 		rondaActual += 1
 		personaje.cambioDeRonda(rondaActual)
@@ -99,39 +95,6 @@ object configRondas {
 object ronda {
 	const personaje = nivel.personaje()
 	
-/* 	method iniciarRondas(listaDeEnemigos,configRonda){
-		 if(listaDeEnemigos.size()<11){
-			game.onTick(1500, "ronda uno", {
-            self.empezarRonda(2, 300, 1, ["img/piccolo.png", "img/raditz.png", "img/mrsatan.png"])
-			})}
-			 else {
-				game.removeTickEvent("ronda uno")
-				self.iniciarRonda2(listaDeEnemigos,configRonda)
-			}
-}
-	
-	method iniciarRonda2(listaDeEnemigos,configRonda){
-		  configRonda.cambioDeRonda()
-		 if(listaDeEnemigos.size() >= 11 &&  listaDeEnemigos.size()< 21){
-		 	game.onTick(1500, "ronda dos", {self.empezarRonda(5, 700, 3, ["img/freezer.png", "img/breerus.png", "img/cell.png"])
-				})  if(listaDeEnemigos.size() == 21) {
-					game.removeTickEvent("ronda dos")
-					self.iniciarRondaFinal(configRonda)
-					}
-		 }
-	}
-	
-	method iniciarRondaFinal(configRonda){
-		 configRonda.cambioDeRonda()
-		game.schedule(48000, {
-			game.onTick(100, "boss final",{
-					self.empezarRonda(10, 1000, 10, ["img/majinbooContento.png"])
-				})
-	     }
-	     
-	   )}
-	
-	*/
   method empezarRonda(danio, velocidad, vida, images) {
 		
 		var enemigo = new Enemigo(position = game.at(self.aparecerRandom(), 2), danio = danio, velocidad = velocidad, vida = vida, images = images)
