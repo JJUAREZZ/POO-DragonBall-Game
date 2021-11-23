@@ -4,8 +4,16 @@ import disparos.*
 import movimientos.*
 import enemigos.*
 
+const opening = game.sound("opening.mp3")
+const battle = game.sound("battle.mp3")
+const goku = new Personaje(image = "img/goku1.png", imageAtaque = "img/ataque.png", imageUlti = "img/ultiGoku.png")
+const vegeta = new Personaje(image = "img/vegeta1.png", imageAtaque = "img/ataqueVegeta.png", imageUlti = "img/ultiVegeta.png")
+
 object startMenu {
 	method iniciar() {
+		opening.shouldLoop(true)
+		game.schedule(500, { opening.play()} )
+		opening.volume(0.1)
 		seleccionador.seleccionarPersonaje()
 		game.addVisualIn(pantallaMenu, game.at(10, 5))
 	}	
@@ -29,20 +37,26 @@ object seleccionador {
 }
 
 object nivel {
-	var personaje
+	var personaje 
 	method personaje() = personaje
 	method personajeSeleccionado(personajeSeleccionado) {
 		personaje = personajeSeleccionado
 	}
 	method iniciar() {
+		opening.pause()
+		
 		game.clear()
 		game.addVisual(personaje)
 		game.addVisual(banner)
 		game.addVisual(round)
 		config.configurarTeclas()
-		configRondas.aparecerEnemigos()
 		config.configurarColisiones()
+		configRondas.aparecerEnemigos(rondaUno)
 		round.cambioDeRonda(1)
+		
+		battle.shouldLoop(true)
+		game.schedule(500, { battle.play()} )
+		battle.volume(0.5)
 	}
 }
 
@@ -56,8 +70,8 @@ object round {
 	
 	method image() = image
 	method position() = game.at(9, 5)
-	method cambioDeRonda(ronda) {
-		image = "img/round" + ronda + ".png"
+	method cambioDeRonda(rondaActual) {
+		image = "img/round" + rondaActual + ".png"
 		game.schedule(2000, {game.removeVisual(self)})
 	}
 }
