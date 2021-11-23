@@ -22,7 +22,7 @@ object config {
 		game.onCollideDo(personaje, {enemigo => enemigo.atacar()})
 	}
 	method colisionDisparoPersonaje(disparo) {
-		game.onCollideDo(disparo, {invisible => disparo.colision(invisible)})
+		game.onCollideDo(disparo, {invisible => if(invisible.soyEnemigo()) disparo.colision(invisible)})
 	}
 }
 
@@ -49,7 +49,7 @@ object perseguirPersonaje {
 			self.irDer(enemigo)
 		}
 	}
-	method personajeALaIzq(enemigo) {
+	method personajeALaIzq(enemigo) { 
 		return (enemigo.position().x() > personaje.position().x())
 	}
 	method personajeALaDer(enemigo) {
