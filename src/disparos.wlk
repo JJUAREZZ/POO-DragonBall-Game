@@ -9,10 +9,13 @@ class Ataque {
 	var danio = 1
 	var direccion
 	var personaje = nivel.personaje()
+	var property soyEnemigo = false
+	var image
 	
+	method image() = image
 	method movete() {
 		game.onTick(200, "mover ataque", {
-				direccion.moverse(self)		
+				direccion.moverse(self)
 		})
 	}
 	method nuevaPosicion(nuevaPosicion) {
@@ -28,57 +31,21 @@ class Ataque {
 	}
 }
 
-class AtaqueGoku inherits Ataque {
-	method image() = "img/ataque.png"
-}
-
-class AtaqueVegeta inherits Ataque {
-	method image() = "img/ataqueVegeta.png"
-}
-
-class Ultimate {
-	var property position
-	var danio = 4
-	var direccion 
-	
-	method movete() {
-		game.removeVisual(ultiActiva)
-		game.onTick(200, "mover ulti", {
-				direccion.moverse(self)		
-		})
-	}
-	method nuevaPosicion(nuevaPosicion) {
-		position = nuevaPosicion
-	}
-	method colision(enemigo) {
+class Ultimate inherits Ataque{
+	override method colision(enemigo) {
 		 enemigo.perderVida(danio)
 	}
-	method desaparecer() {
-		game.removeTickEvent("mover ulti")
-		game.removeVisual(self)
-	}
 }
 
-class UltiGoku inherits Ultimate {
-	method image() = "img/ultiGoku.png"
-}
-
-class UltiVegeta inherits Ultimate {
-	method image() = "img/ultiVegeta.png"
-}
-
-object izquierda {
-	method moverse(objeto) {
+class Direc {
+	method izquierda(objeto) {
 		if(tablero.enElTablero(objeto)) {
 			objeto.nuevaPosicion(objeto.position().left(1))	
 		} else {
 			objeto.desaparecer()
-		}
+		}	
 	}
-}
-
-object derecha {
-	method moverse(objeto) {
+	method derecha(objeto) {
 		if(tablero.enElTablero(objeto)) {
 			objeto.nuevaPosicion(objeto.position().right(1))	
 		} else {
@@ -87,9 +54,21 @@ object derecha {
 	}
 }
 
+object izquierda inherits Direc {
+	method moverse(objeto) {
+		self.izquierda(objeto)
+	}
+}
+
+object derecha inherits Direc{
+	method moverse(objeto) {
+		self.derecha(objeto)
+	}
+}
+
 object tablero {
 	method enElTablero(objeto) {
-		return (objeto.position().x() > -1 && objeto.position().x() < game.width() + 1)
+		return (objeto.position().x() > -9 && objeto.position().x() < game.width() + 1)
 	}
 }
 
